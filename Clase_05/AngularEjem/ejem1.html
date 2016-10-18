@@ -1,0 +1,137 @@
+<!doctype html>
+<html ng-app="app1" ng-cloak>
+  <head>
+    <title>AngularJS: Ejemplo 1</title>
+    <style>
+    [ng\:cloak], [ng-cloak], .ng-cloak {
+      display: none;
+    }
+    table{
+      width: 400px;
+      text-align: left;
+      border: 2px solid black;
+      padding: 10px;
+    }
+    input.ng-dirty.ng-invalid {
+      border-color: red;
+    }
+    </style>
+  </head>
+  <body>
+
+    <div id="groceryList" ng-controller="gListCtrl">
+
+      <h3>Lista de compras</h3>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Producto</th>
+            <th>Comprado</th>
+          <tr>
+        </thead>
+        <tr ng-repeat="grocery in groceries">
+          <td>{{grocery.item}}</td>
+          <td>
+            <!-- Bind the checkbox to the data model -->
+            <input type="checkbox" ng-model="grocery.purchased" />
+          </td>
+        </tr>
+      </table>
+
+      <br>
+
+      <!-- User enters a new item and when the button is clicked
+      the value in the input box is added to the array -->
+      <label>Nuevo producto:
+        <input type="text" ng-model="newItem" />
+      </label>
+      <button ng-click="addItem(newItem)">Agregar producto</button>
+
+      <!-- Error shows here if no item was entered -->
+      <h4>{{missingNewItemError}}</h4>
+
+    </div> <!-- End of groceryList -->
+
+
+    <div ng-controller="userCtrl">
+
+      <!-- Pass the user data to saveUser() -->
+      <form name="userForm" ng-submit="saveUser(userInfo)">
+        <label>Nombre:</label>
+
+        <!-- Define that a value is required and it must be 2 characters in length or more -->
+        <input type="text" name="fName" ng-model="userInfo.fName"
+        ng-required="true" ng-minlength="2" />
+
+        <!-- $dirty is set to true if a user interacts with a element and then we check if the elements required field is true -->
+        <span class="error-message" ng-show="userForm.fName.$dirty
+        && userForm.fName.$error.required">Debe ingresar nombre
+        </span>
+
+        <!-- Check if the element has been edited and whether it contains at least 2 characters -->
+        <span class="error-message" ng-show="userForm.fName.$dirty
+          && userForm.fName.$error.minlength">Debe tener un minimo de 2 caracteres</span>
+
+        <br><br>
+
+        <label>Apellido:</label>
+
+        <input type="text" name="lName" ng-model="userInfo.lName"
+        ng-required="true" ng-minlength="2" />
+
+        <span class="error-message" ng-show="userForm.lName.$dirty
+        && userForm.lName.$error.required">Debe ingresar apellido
+        </span>
+
+        <span class="error-message" ng-show="userForm.lName.$dirty
+          && userForm.lName.$error.minlength">Debe tener un minimo de 2 caracteres</span>
+
+        <br><br>
+
+        <label>Calle:</label>
+
+        <input type="text" name="street" ng-model="userInfo.street"
+        ng-required="true" ng-minlength="6" ng-pattern="/[a-zA-Z1-9À-ÖØ-öø-ÿ]+\.?(( |\-)[a-zA-Z1-9À-ÖØ-öø-ÿ]+\.?)*/" />
+
+        <span class="error-message" ng-show="userForm.street.$dirty
+        && userForm.street.$invalid">Debe ingresar calle
+        </span>
+
+        <br><br>
+
+        <label>Suscrito:</label>
+
+        <input type="checkbox" name="subscribe" ng-model="userInfo.subscribe" ng-true-value="'Suscrito'" ng-false-value="'No Suscrito'" />
+
+        <br><br>
+
+        <label>Metodo de contacto:</label>
+
+        <select name="delivery" ng-model="userInfo.delivery"  ng-required="true">
+
+          <option value="Email">Email</option>
+          <option value="Mail">Correo</option>
+
+        </select>
+
+        <br><br>
+
+        <!-- Disable the button until every element in the form is valid -->
+        <input type="submit" value="Save" ng-disabled="userForm.$invalid"/>
+
+        <!-- Output new users -->
+        <ul>
+        <li ng-repeat = "item in user">
+          {{ 'User: ' + item.fName + " " + item.lName + " " + item.street +
+            " " + item.subscribe + " " + item.delivery}}
+        </li>
+      </ul>
+
+    </div> <!-- End of userCtrl -->
+
+    <script src="js/angular.min.js"></script>
+    <script src="js/ejem1.js"></script>
+
+  </body>
+</html>
