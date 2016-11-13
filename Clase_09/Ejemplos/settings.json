@@ -1,0 +1,7 @@
+{
+  host : 'sm',
+  user : 'an',
+  password : '',
+  database : 't'
+}
+

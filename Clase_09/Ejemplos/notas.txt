@@ -1,0 +1,140 @@
+# Base de datos relacionales
+https://github.com/mysqljs/mysql
+https://github.com/brianc/node-postgres
+
+
+# Mongo drives
+http://mongoosejs.com/docs/index.html
+https://mongodb.github.io/node-mongodb-native/
+
+# Comenzar servicio mongodb
+mongod --dbpath /var/lib/mongodb -fork --logpath /var/log/mongodb.log
+
+# Parar servicio mongodb
+mongod --shutdown --dbpath /var/lib/mongodb
+
+# Entrar a la consola, por defecto entra a la base de datos test
+mongo
+
+# Es posible crear una funcion en javascript y llamarla
+> function test1(n){return n*2;}
+> test1(3)
+
+# Mostrar las base de datos
+> show dbs
+
+# Mostrar la actual base de datos
+> db
+
+# Mostrar el actual host
+> hostname()
+
+# Crear base de datos para probar comandos
+> use dawe_db
+
+# Crear un objecto
+> exequiel = {"nombre": "Exequiel Fuentes", "cargo": "Profesor"}
+
+# Insertar
+> db.dawe_db.insert(exequiel)
+
+# Encontrar todos
+> db.dawe_db.find()
+
+# Listar todos de una mejor forma
+> db.dawe_db.find().pretty()
+
+# Actualizando el documento
+> exequiel.referencias = []
+> db.dawe_db.update({"nombre": "Exequiel Fuentes"}, exequiel)
+> db.dawe_db.find()
+
+# Remover un documento
+> db.dawe_db.remove({"nombre": "Exequiel Fuentes"})
+
+# Insertando datos y eliminando usando objeto
+> datos = {"nombre": null, "esalumno": true, "altura": 1.81, "bigint": 4294967295, "bigLong": 18446744073709551616, "direccion": "Av Angamos 0628", "notas": [3.3, 5.6, 4.3], "inicio": new Date(), "regex": '/^[A-Za-z0-9\.\' \-]{5,30}$/', "profesor": {"nombre": "Exequiel Fuentes"}}
+> db.dawe_db.insert(datos)
+> db.dawe_db.find().pretty()
+> db.dawe_db.remove(datos)
+> db.dawe_db.find().pretty()
+
+# Salir de la consola
+> exit
+
+# Cargar una funcion javascript externa y usarla. Ver DefSelectDB.js en esta carpeta
+# Esta funcion define una base de datos
+> load('DefSelectDB.js')
+> selectDB()
+> selectDB(27017,"otra_db")
+
+# Para configurar valores por defecto puedes utilizar el archivo .mongorc.js, este
+# debe localizarse en la carpeta de usuario. Hay un ejemplo en esta carpeta
+# Notar que se define el editor por defecto vim (linux, mac).
+> exequiel = {"nombre": "Exequiel Fuentes"}
+> edit exequiel
+# Deberia abrir el editor vim para actualizar los datos del objeto exequiel
+
+# Insertar multiples documentos
+> db.dawe_db.insert([{"nombre" : "Tony Stark"}, {"nombre" : "Steve Rogers"}])
+
+# Actualizar un documento
+> db.dawe_db.update({"nombre" : "Tony Stark"}, {$set:{"nombre" : "Anthony Edward Stark", "team": "the Avengers"}})
+
+# Drop toda la informacion
+> db.dawe_db.drop()
+
+# Insertar datos para realizar consultas
+> db.dawe_db.insert([{"name" : "Dale Cooper", "street" : "123 Main St", "city" : "Yakima", "state" : "WA", "dob" : new Date(1959, 2, 22), "sex" : "M", "gpa" : 3.5, "status" : "student", "tests" : [10, 9, 8], "contact info" : {"email" : "dc@aol.com", "phone" : "792-223-8901"}}, 
+{"name" : "Harry Truman", "street" : "202 South St", "city" : "Vancouver", "state" : "WA", "dob" : new Date(1946, 1, 24), "sex" : "M", "gpa" : 3.4, "status" : "student", "tests" : [8, 9, 8], "contact info" : {"email" : "ht@aol.com", "phone" : "792-223-9810"}},
+{"name" : "Shelly Johnson", "street" : "9 Pond Rd", "city" : "Sparks", "state" : "NV", "dob" : new Date(1970, 12, 12), "sex" : "F", "gpa" : 2.9, "status" : "dropout", "tests" : [10, 8, 0], "contact info" : {"email" : "sj@aol.com", "phone" : "792-223-6734"}},
+{"name" : "Bobby Briggs", "street" : "14 12th St", "city" : "San Diego", "state" : "CA", "dob" : new Date(1967, 5, 24), "sex" : "M", "gpa" : 2.0, "status" : "student", "tests" : [5, 4, 6], "contact info" : {"email" : "bb@aol.com", "phone" : "792-223-6178"}},
+{"name" : "Donna Hayward", "street" : "120 16th St", "city" : "Davenport", "state" : "IA", "dob" : new Date(1970, 3, 24), "sex" : "F", "gpa" : 3.7, "status" : "student", "tests" : [10, 8, 8], "contact info" : {"email" : "dh@aol.com", "phone" : "792-223-2001"}},
+{"name" : "Audrey Horne", "street" : "342 19th St", "city" : "Detroit", "state" : "MI", "dob" : new Date(1965, 2, 1), "sex" : "F", "gpa" : 3.0, "status" : "student", "tests" : [9, 9, 8], "contact info" : {"email" : "ah@aol.com", "phone" : "792-223-2002"}},
+{"name" : "James Hurley", "street" : "2578 Cliff St", "city" : "Queens", "state" : "NY", "dob" : new Date(1967, 1, 2), "sex" : "M", "gpa" : 2.9, "status" : "dropout", "tests" : [8, 9, 0], "contact info" : {"email" : "jh@aol.com", "phone" : "792-223-1890"}},
+{"name" : "Lucy Moran", "street" : "178 Dover St", "city" : "Hollywood", "state" : "CA", "dob" : new Date(1954, 11, 27), "sex" : "F", "gpa" : 3.0, "status" : "student", "tests" : [9, 9, 8], "contact info" : {"email" : "lm@aol.com", "phone" : "792-223-9678"}},
+{"name" : "Tommy Hill", "street" : "672 High Plains", "city" : "Tucson", "state" : "AZ", "dob" : new Date(1951, 12, 21), "sex" : "M", "gpa" : 3.7, "status" : "student", "tests" : [10, 9, 9], "contact info" : {"email" : "th@aol.com", "phone" : "792-223-1115"}},
+{"name" : "Andy Brennan", "street" : "281 4th St", "city" : "Jacksonville", "state" : "NC", "dob" : new Date(1960, 12, 27), "sex" : "M", "gpa" : 2.5, "status" : "student", "tests" : [7, 9, 8], "contact info" : {"email" : "ab@aol.com", "phone" : "792-223-8902"}},
+])
+
+# Encontrar state=Wa y sex=M
+> db.dawe_db.find({"state" : "WA", "sex" : "M"}).pretty()
+
+# Mostrar name, dob, pero no _id
+> db.dawe_db.find({"state" : "WA", "sex" : "M"}, {"name" : 1, "dob" : 1, "_id" 0
+
+# Encontrar a todos los alumnos que tengan un gpa mayor o igual a 3.0 y menor 
+# o igual que 3.5. Mostrar solo el nombre y gpa
+> db.dawe_db.find({"gpa" : {"$gte" : 3.0, "$lte" : 3.5}}, {"name" : 1, "gpa" : 1, "_id" : 0})
+
+# Encontrar estudiantes mujeres usando noequal. Mostrar solo el nombre
+> db.dawe_db.find({"sex" : {"$ne" : "M"}, "status" : "student"}, {"name" : 1, "_id" : 0})
+
+# Encontrar los siguientes GPAs of 3.4, 3.5, 3.6, 3.7. Mostrar solo el nombre
+> db.dawe_db.find({"gpa" : {"$in" : [3.4, 3.5, 3.6, 3.7]}}, {"name" : 1, "_id" : 0})
+
+# Encontrar todas las filas que status=dropout o gpa<3.0. Mostrar solo el nombre
+> db.dawe_db.find({"$or" : [{"status" : "dropout"}, {"gpa" : {"$lt" : 3.0}}]}, {"name" : 1, "_id" : 0})
+
+# Encontrar los 3 primeros que no tengan gpa > 3.0. Mostrar solo el nombre
+> db.dawe_db.find({"gpa": {$not : {$gt : 3.0}}}, {"name" : 1, "_id" : 0}).limit(3)
+
+# Ordenar por nombre aquellos que no tengan gpa > 3.0. Mostrar solo el nombre
+> db.dawe_db.find({"gpa": {$not : {$gt : 3.0}}}, {"name" : 1, "_id" : 0}).sort({"name" : 1})
+
+# Como insertar una gran cantidad de datos de prueba
+> for(i= 0; i < 500000; i++){db.dawe_db.insert({"account":"account"+i,"age":Math.floor(Math.random() * 90)});}
+
+# Ver cuanto tarda en realizar una consulta
+> db.dawe_db.find({"age": 50}).explain("executionStats")
+
+# Crear indices para age y account
+> db.dawe_db.ensureIndex({"age" : 1, "account" : 1})
+
+# Ver todos los indices
+> db.dawe_db.getIndexes()
+
+# Remover un indice
+> db.dawe_db.dropIndex("age_1_account_1")
+
+
